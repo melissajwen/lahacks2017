@@ -1,0 +1,20 @@
+{
+  "manifest_version": 2,
+ 
+  "name": "LA Hacks 2017",
+
+  "version": "0.1.0",
+  "description": "A Chrome extension that uses machine learning and sentiment analysis to flag symptoms of
+                  a potential mental disorder.",
+
+  "browser_action": {
+	"default_title": "LA Hacks 2017"
+	},
+ 
+  "content_scripts": [{
+    "js": ["jquery.js","content.js"],
+    "matches": ["https://*/*", "http://*/*"]
+  }
+  ]
+
+}
