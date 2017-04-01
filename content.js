@@ -1,5 +1,14 @@
+// var query;
+// setInterval(function() {
+//     var temp = document.title;
+//     query = temp.substring(0, temp.length-16);
+//     console.log(query);
+// }, 500);
+
 var temp = document.title;
 var query = temp.substring(0, temp.length-16);
+console.log(query);
+
 
 var json = {
   "documents": [
@@ -10,6 +19,8 @@ var json = {
     }
   ]
 };
+
+// Call the Microsoft Sentiment Analysis API
 
 $.ajax({
     type: "POST",
@@ -22,9 +33,20 @@ $.ajax({
     data: JSON.stringify(json),
     success: function(data) {
         score = data["documents"][0]["score"];
+        console.log(data);
         console.log(score);
     },
     fail: function() {
         console.log("error");
     }
+});
+
+// Link Python code
+
+$.ajax({
+    type: "POST",
+    url: "~/pythoncode.py",
+    data: { param: text}
+}).done(function( o ) {
+   // do something
 });
