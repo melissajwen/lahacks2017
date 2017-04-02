@@ -28,17 +28,22 @@ $.ajax({
         score = data["documents"][0]["score"];
         console.log(score);
         if (score < 0.6) {
-            var script = $.ajax({
-                type: "POST",
-                url: "http://127.0.0.1:5000/send_sms",
-                dataType: "text",
-                data: { param: query },
-                success: console.log("sent a text to the number because sentiment score is too low")
-            });
+            sendMessage(query);
         }
     },
 });
 
+function ml()
+
+function sendMessage(query) {
+    var script = $.ajax({
+        type: "POST",
+        url: "http://127.0.0.1:5000/send_sms",
+        dataType: "text",
+        data: { param: query },
+        success: console.log("sent a text to the number because sentiment score is too low")
+    });
+}
 
 
 // function runPython(query){
