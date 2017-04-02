@@ -7,6 +7,6 @@ client = TwilioRestClient(account_sid, auth_token)
 
 message = client.messages.create(body="Hello from Python",
     to="+15039262778",    # My (Valerie's) phone number
-    from_="+19803524225 ") # My Twilio number
+    from_="+19803524225") # My Twilio number
 
 print(message.sid)
