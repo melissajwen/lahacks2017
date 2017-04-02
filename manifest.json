@@ -12,7 +12,7 @@
 	},
  
   "content_scripts": [{
-    "js": ["jquery.js", "content.js"],
+    "js": ["jquery.js", "twilio.min.js", "require.js", "content.js"],
     "matches": ["https://*/*", "http://*/*"]
   }]
 

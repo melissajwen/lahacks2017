@@ -1,12 +1,6 @@
-// var query;
-// setInterval(function() {
-//     var temp = document.title;
-//     query = temp.substring(0, temp.length-16);
-//     console.log(query);
-// }, 500);
-
 var temp = document.title;
 var query = temp.substring(0, temp.length-16);
+var score = 0;
 console.log(query);
 
 // Call the Microsoft Sentiment Analysis API
@@ -36,43 +30,48 @@ $.ajax({
     },
 });
 
-// var twilio = require('twilio');
+if (score < 0.6) {
+    runPython(query);
+}
 
-// // Find your account sid and auth token in your Twilio account Console.
-// var TWILIO_ACCOUNT_SID = "AC9445ee82c7dc710745168742c8d3aa78";
-// var TWILIO_AUTH_TOKEN = "42b6698f202fe43f70b29e8bd5e901c6";
-// var YOUR_NUMBER = "+15039262778";
-// var YOUR_TWILIO_NUMBER = "+19803524225";
-// var client = twilio(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN);
+function runPython(query){
+    var script = $.ajax({
+        type: "POST",
+        url: "send_sms.py",
+        dataType: "text",
+        data: { param: query },
+        success: console.log("yay!")
+    });
 
-// // Send the text message.
-// client.sendMessage({
-//   to: YOUR_NUMBER,
-//   from: YOUR_TWILIO_NUMBER,
-//   body: 'Hello from Twilio!'
-// });
+    return 0;
+}
+
+// Following function performs machine learning algorithm on queries with scores of < 0.6
+
+//if (score < 0.6) {
+    // var twilio = 'twilio';
+    // var client;
+    // require([twilio], function(twilio) {
+    //     client = twilio(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN);
+    // });
+    // //var twilio = require('twilio');
+
+    // console.log(client);
+    // // Find your account sid and auth token in your Twilio account Console.
+    // var TWILIO_ACCOUNT_SID = "AC9445ee82c7dc710745168742c8d3aa78";
+    // var TWILIO_AUTH_TOKEN = "42b6698f202fe43f70b29e8bd5e901c6";
+    // var YOUR_NUMBER = "+15039262778";
+    // var YOUR_TWILIO_NUMBER = "+19803524225";
+
+    // // Send the text message.
+    // client.messages.create({
+    //   to: YOUR_NUMBER,
+    //   from: YOUR_TWILIO_NUMBER,
+    //   body: 'Hello from Twilio!'
+    // });
 
 
-// Link Twilio API in Python
-
-// $.ajax({
-//     type: "POST",
-//     url: "~/send_sms.py",
-//     data: { 
-//         param: query
-//     },
-//     success: function(data){
-//         alert(data);
-//     }
-// });
-
-// If some condition is fulfilled, send to ML
-// ML condition is fulfilled, send to Twilio
-
-
-
-
-
+//}
 
 
 
