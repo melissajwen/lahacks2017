@@ -1,14 +1,30 @@
 from twilio.rest import TwilioRestClient
+from flask import Flask, request, jsonify
 
-query = request.POST["query"];
-account_sid = "AC9445ee82c7dc710745168742c8d3aa78" # My Account SID from www.twilio.com/console
-auth_token  = "42b6698f202fe43f70b29e8bd5e901c6"  # My Auth Token from www.twilio.com/console
+app = Flask(__name__)
 
-client = TwilioRestClient(account_sid, auth_token)
+@app.route("/send_sms", methods =['POST'])
+def hello():
+	account_sid = "AC9445ee82c7dc710745168742c8d3aa78" # My Account SID from www.twilio.com/console
+	auth_token  = "42b6698f202fe43f70b29e8bd5e901c6"  # My Auth Token from www.twilio.com/console
 
-message = client.messages.create(
-	body=query,
-    to="+15039262778",    # Valerie's phone number
-    from_="+19803524225") # My Twilio number 
+	client = TwilioRestClient(account_sid, auth_token)
+	print("hi")
+	message = client.messages.create(
+		body = "Received a search query of: " + request.form['param'] + 
+			   ". Is this behavior concerning? Please reply Yes or No.",
+	    to = "+14086807024",  # Valerie's phone number
+	    from_ = "+19803524225") # My Twilio number 
 
-print(message.sid)
+	return jsonify(message.sid)
+
+if __name__ == "__main__":
+	app.run()
+
+# import cgi, cgitb
+
+# data = cgi.FieldStorage();
+# output = data["param"];
+# print output;
+
+#query = request.POST["query"];

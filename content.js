@@ -27,24 +27,25 @@ $.ajax({
     success: function(data) {
         score = data["documents"][0]["score"];
         console.log(score);
+        if (score < 0.6) {
+            var script = $.ajax({
+                type: "POST",
+                url: "http://127.0.0.1:5000/send_sms",
+                dataType: "text",
+                data: { param: query },
+                success: console.log("sent a text to the number because sentiment score is too low")
+            });
+        }
     },
 });
 
-if (score < 0.6) {
-    runPython(query);
-}
 
-function runPython(query){
-    var script = $.ajax({
-        type: "POST",
-        url: "send_sms.py",
-        dataType: "text",
-        data: { param: query },
-        success: console.log("yay!")
-    });
 
-    return 0;
-}
+// function runPython(query){
+    
+
+//     return 0;
+// }
 
 // Following function performs machine learning algorithm on queries with scores of < 0.6
 
