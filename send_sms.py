@@ -9,7 +9,7 @@ def hello():
 	auth_token  = "42b6698f202fe43f70b29e8bd5e901c6"  # My Auth Token from www.twilio.com/console
 
 	client = TwilioRestClient(account_sid, auth_token)
-	print("hi")
+
 	message = client.messages.create(
 		body = "Received a search query of: " + request.form['param'] + 
 			   ". Is this behavior concerning? Please reply Yes or No.",
@@ -20,11 +20,3 @@ def hello():
 
 if __name__ == "__main__":
 	app.run()
-
-# import cgi, cgitb
-
-# data = cgi.FieldStorage();
-# output = data["param"];
-# print output;
-
-#query = request.POST["query"];

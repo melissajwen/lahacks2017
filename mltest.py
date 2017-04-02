@@ -3,8 +3,6 @@
 
 # In[216]:
 
-get_ipython().magic('matplotlib inline')
-
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -17,11 +15,24 @@ from sklearn.metrics import classification_report
 from datetime import datetime
 import itertools
 
+from flask import Flask, request, jsonify
+
+app = Flask(__name__)
+
+@app.route("/send_sms", methods =['POST'])
+def hello():
+  print("hi")
+  data = pd.read_csv(request.form['param'])
+  data.head()
+
+if __name__ == "__main__":
+  app.run()
+
 
 # In[217]:
 
-data = pd.read_csv('test.csv')
-data.head()
+# data = pd.read_csv('test.csv')
+# data.head()
 
 
 # In[218]:
