@@ -17,29 +17,19 @@ import itertools
 
 from flask import Flask, request, jsonify
 
-app = Flask(__name__)
 
-@app.route("/send_sms", methods =['POST'])
-def hello():
-  print("hi")
-  data = pd.read_csv(request.form['param'])
-  data.head()
 
-if __name__ == "__main__":
-  app.run()
 
 
 # In[217]:
 
-# data = pd.read_csv('test.csv')
-# data.head()
+data = pd.read_csv('test.csv')
+data.head()
 
 
 # In[218]:
 
 data[data['text'] == 'I want to kill myself']['bool'] = 0
-data
-
 
 # In[219]:
 
@@ -63,9 +53,6 @@ negative_words = np.array(['hate', 'annoy', 'anxious', 'bad',
 
 
 # In[221]:
-
-data
-
 
 # ## random branch of other stuff
 
@@ -169,7 +156,31 @@ def unflag(string,X):
         if np.array_equal(v, vec[0]):
             y[i] = 0
     
+app = Flask(__name__)
 
+@app.route("/mltest", methods =['POST'])
+def hello():
+  print("hi")
+  data = pd.read_csv(request.form['param'])
+  data.head()
+
+@app.route("/send_sms", methods =['POST'])
+def hi():
+  account_sid = "AC9445ee82c7dc710745168742c8d3aa78" # My Account SID from www.twilio.com/console
+  auth_token  = "42b6698f202fe43f70b29e8bd5e901c6"  # My Auth Token from www.twilio.com/console
+
+  client = TwilioRestClient(account_sid, auth_token)
+
+  message = client.messages.create(
+    body = "Received a search query of: " + request.form['param'] + 
+         ". Is this behavior concerning? Please reply Yes or No.",
+      to = "+14086807024",  # Valerie's phone number
+      from_ = "+19803524225") # My Twilio number 
+
+  return jsonify(message.sid)
+
+if __name__ == "__main__":
+  app.run()
 
 # In[105]:
 
